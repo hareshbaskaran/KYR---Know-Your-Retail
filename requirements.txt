@@ -1,7 +1,7 @@
-fastapi[standard]
+fastapi
 langchain
+langchain_community
 openai
 uvicorn
 pydantic
-dotenv
-google-cloud-aiplatform
+langchain-google-genai
