@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException,UploadFile, File, Form
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form
 from services.llm_providers import GeminiLLMProvider
 from models.request import ChatRequest, ChatWithCsvRequest
 from models.response import ChatResponse
@@ -7,6 +7,7 @@ import tempfile
 
 app = FastAPI()
 gemini_provider = GeminiLLMProvider()
+
 
 async def handle_temp_csv(csv_file: UploadFile) -> str:
     try:
@@ -24,6 +25,7 @@ async def handle_temp_csv(csv_file: UploadFile) -> str:
 def health_check():
     return {"status": "ok", "message": "API is running"}
 
+
 # Chat route
 @app.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
@@ -40,12 +42,10 @@ async def chat(request: ChatRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @app.post("/chat-with-csv", response_model=ChatResponse)
-#async def chat_with_csv(request: ChatWithCsvRequest):
-async def chat_with_csv(
-        user_input : str = Form(...),
-        csv_file: UploadFile = File(...)
-):
+# async def chat_with_csv(request: ChatWithCsvRequest):
+async def chat_with_csv(user_input: str = Form(...), csv_file: UploadFile = File(...)):
     try:
         llm = gemini_provider.get_llm()
 
@@ -57,5 +57,6 @@ async def chat_with_csv(
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 ### working code ###

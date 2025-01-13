@@ -30,11 +30,11 @@ class GeminiLLMProvider(BaseLLMProvider):
             temperature=0.7,
             top_p=0.85,
             google_api_key=GOOGLE_API_KEY,
-            tokenize=1028
+            tokenize=1028,
         )
 
         # Check if the model has a bind method and handle accordingly
-        if not hasattr(model, 'bind'):
+        if not hasattr(model, "bind"):
             # If `bind` is not available, add your own method or modify usage
             def bind_method(*args, **kwargs):
                 return model  # You might adjust the binding logic here

@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings
 from enums import LLMProvider
 
+
 class Settings(BaseSettings):
     app_name: str = "KYR - ChatBot"
     llm_provider: LLMProvider = LLMProvider.GEMINI
@@ -11,6 +12,7 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+
 
 # Instantiate the settings class to access the settings in your application
 settings = Settings()
